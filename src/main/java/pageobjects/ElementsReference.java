@@ -1,97 +1,34 @@
 package pageobjects;
 
+import org.openqa.selenium.By;
+
 public class ElementsReference {
 
-    // Логотип "Самокат"
-    // By.xpath(".//img[@alt='Scooter']/parent::a")
-
-    // Логотип Яндекса
-    // By.xpath(".//img[@alt='Yandex']/parent::a")
-
-    // Кнопка "Заказать" (верхняя)
-    // By.xpath(".//div[contains(@class,'Header_Nav')]//button[text()='Заказать']")
-
-    // Кнопка "Заказать" (нижняя)
-    // By.xpath(".//div[contains(@class,'Home_FinishButton')]//button[text()='Заказать']")
-
-    // Кнопка "Статус заказа"
-    // By.xpath(".//button[text()='Статус заказа']")
-
-    // Поле ввода номера заказа
-    // By.xpath(".//input[@placeholder='Введите номер заказа']")
-
-    // Кнопка "Go!"
-    // By.xpath(".//button[text()='Go!']")
-
-    // Кнопка принятия куки
-    // By.id("rcc-confirm-button")
-
-    // Вопрос FAQ (index 0-7, поиск по порядку)
-    // By.xpath("(//div[contains(@class,'accordion__item')]//div[@role='button'])[index+1]")
-
-    // Ответ FAQ (index 0-7, поиск по порядку)
-    // By.xpath("(//div[contains(@class,'accordion__item')]//p)[index+1]")
-
-    // Поле "Имя"
-    // By.xpath(".//input[@placeholder='* Имя']")
-
-    // Поле "Фамилия"
-    // By.xpath(".//input[@placeholder='* Фамилия']")
-
-    // Поле "Адрес"
-    // By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']")
-
-    // Поле "Станция метро"
-    // By.xpath(".//input[@placeholder='* Станция метро']")
-
-    // Элемент выпадающего списка станций
-    // By.xpath(".//li[contains(@class,'select-search__row')]//*[text()='СТАНЦИЯ']")
-
-    // Поле "Телефон"
-    // By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']")
-
-    // Кнопка "Далее"
-    // By.xpath(".//button[text()='Далее']")
-
-    // Поле "Когда привезти самокат"
-    // By.xpath(".//input[@placeholder='* Когда привезти самокат']")
-
-    // Выпадающий список "Срок аренды"
-    // By.xpath(".//div[@class='Dropdown-placeholder']")
-
-    // Элемент списка "Срок аренды"
-    // By.xpath(".//div[contains(@class,'Dropdown-option') and text()='ВАРИАНТ']")
-
-    // Чекбокс "чёрный жемчуг"
-    // By.id("black")
-
-    // Чекбокс "серая безысходность"
-    // By.id("grey")
-
-    // Поле "Комментарий для курьера"
-    // By.xpath(".//input[@placeholder='Комментарий для курьера']")
-
-    // Кнопка "Заказать" (в форме)
-    // By.xpath(".//div[contains(@class,'Order_Buttons')]//button[text()='Заказать']")
-
-    // Кнопка "Да" (подтвердить)
-    // By.xpath(".//div[contains(@class,'Order_Modal')]//button[text()='Да']")
-
-    // Заголовок "Заказ оформлен"
-    // By.xpath(".//div[contains(@class,'Order_ModalHeader') and contains(text(),'Заказ оформлен')]")
-
-    // Ошибка поля "Имя"
-    // By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректное имя']")
-
-    // Ошибка поля "Фамилия"
-    // By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректную фамилию']")
-
-    // Ошибка поля "Адрес"
-    // By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректный адрес']")
-
-    // Ошибка поля "Телефон"
-    // By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректный номер']")
-
-    // Изображение "Заказ не найден"
-    // By.xpath(".//img[@alt='Not found']")
+    public static final By SCOOTER_LOGO = By.xpath(".//img[@alt='Scooter']/parent::a");
+    public static final By YANDEX_LOGO = By.xpath(".//img[@alt='Yandex']/parent::a");
+    public static final By ORDER_BUTTON_TOP = By.xpath(".//div[contains(@class,'Header_Nav')]//button[text()='Заказать']");
+    public static final By ORDER_BUTTON_BOTTOM = By.xpath(".//div[contains(@class,'Home_FinishButton')]//button[text()='Заказать']");
+    public static final By STATUS_BUTTON = By.xpath(".//button[text()='Статус заказа']");
+    public static final By ORDER_NUMBER_INPUT = By.xpath(".//input[@placeholder='Введите номер заказа']");
+    public static final By GO_BUTTON = By.xpath(".//button[text()='Go!']");
+    public static final By COOKIE_BUTTON = By.id("rcc-confirm-button");
+    public static final By NAME_INPUT = By.xpath(".//input[@placeholder='* Имя']");
+    public static final By SURNAME_INPUT = By.xpath(".//input[@placeholder='* Фамилия']");
+    public static final By ADDRESS_INPUT = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    public static final By METRO_STATION_INPUT = By.xpath(".//input[@placeholder='* Станция метро']");
+    public static final By PHONE_INPUT = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    public static final By NEXT_BUTTON = By.xpath(".//button[text()='Далее']");
+    public static final By DELIVERY_DATE_INPUT = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    public static final By RENTAL_PERIOD_DROPDOWN = By.xpath(".//div[@class='Dropdown-placeholder']");
+    public static final By BLACK_COLOR_CHECKBOX = By.id("black");
+    public static final By GREY_COLOR_CHECKBOX = By.id("grey");
+    public static final By COMMENT_INPUT = By.xpath(".//input[@placeholder='Комментарий для курьера']");
+    public static final By ORDER_BUTTON_FORM = By.xpath(".//div[contains(@class,'Order_Buttons')]//button[text()='Заказать']");
+    public static final By CONFIRM_YES_BUTTON = By.xpath(".//div[contains(@class,'Order_Modal')]//button[text()='Да']");
+    public static final By ORDER_CREATED_HEADER = By.xpath(".//div[contains(@class,'Order_ModalHeader') and contains(text(),'Заказ оформлен')]");
+    public static final By NAME_ERROR = By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректное имя']");
+    public static final By SURNAME_ERROR = By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректную фамилию']");
+    public static final By ADDRESS_ERROR = By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректный адрес']");
+    public static final By PHONE_ERROR = By.xpath(".//div[contains(@class,'Input_ErrorMessage') and text()='Введите корректный номер']");
+    public static final By NOT_FOUND_IMAGE = By.xpath(".//img[@alt='Not found']");
 }

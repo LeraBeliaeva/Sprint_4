@@ -1,66 +1,51 @@
 package tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import pageobjects.HomePage;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import pageobjects.OrderPage;
 
 import static org.junit.Assert.assertTrue;
 
-public class OrderValidationErrorsTest {
-    private WebDriver driver;
-    private HomePage homePage;
+@RunWith(Parameterized.class)
+public class OrderValidationErrorsTest extends WebTestBase {
 
-    @Before
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
-        homePage = new HomePage(driver);
-        homePage.open().acceptCookies();
+    @Parameterized.Parameter(0) public String name;
+    @Parameterized.Parameter(1) public String surname;
+    @Parameterized.Parameter(2) public String address;
+    @Parameterized.Parameter(3) public String phone;
+    @Parameterized.Parameter(4) public String errorType;
+
+    @Parameterized.Parameters(name = "Ошибка: {4}")
+    public static Object[][] getTestData() {
+        return new Object[][]{
+                {"", "Петров", "ул. Ленина, 1", "+79161234567", "name"},
+                {"Иван", "", "ул. Ленина, 1", "+79161234567", "surname"},
+                {"Иван", "Петров", "+", "+79161234567", "address"},
+                {"Иван", "Петров", "ул. Ленина, 1", "", "phone"},
+        };
+    }
+
+    @Test
+    public void testFieldValidationError() {
         homePage.clickOrderButtonTop();
-    }
-
-    @Test
-    public void testNameFieldValidationError() {
         OrderPage orderPage = new OrderPage(driver);
-        orderPage.enterName("").enterSurname("Петров").enterAddress("ул. Ленина, 1")
-                .selectMetroStation("Сокольники").enterPhone("+79161234567").clickNextButton();
-        assertTrue("Ошибка валидации имени не появилась!", orderPage.isNameErrorDisplayed());
-    }
+        orderPage.enterName(name).enterSurname(surname).enterAddress(address)
+                .selectMetroStation("Сокольники").enterPhone(phone).clickNextButton();
 
-    @Test
-    public void testSurnameFieldValidationError() {
-        OrderPage orderPage = new OrderPage(driver);
-        orderPage.enterName("Иван").enterSurname("").enterAddress("ул. Ленина, 1")
-                .selectMetroStation("Сокольники").enterPhone("+79161234567").clickNextButton();
-        assertTrue("Ошибка валидации фамилии не появилась!", orderPage.isSurnameErrorDisplayed());
-    }
-
-    @Test
-    public void testAddressFieldValidationError() {
-        OrderPage orderPage = new OrderPage(driver);
-        orderPage.enterName("Иван").enterSurname("Петров").enterAddress("+")
-                .selectMetroStation("Сокольники").enterPhone("+79161234567").clickNextButton();
-        assertTrue("Ошибка валидации адреса не появилась!", orderPage.isAddressErrorDisplayed());
-    }
-
-    @Test
-    public void testPhoneFieldValidationError() {
-        OrderPage orderPage = new OrderPage(driver);
-        orderPage.enterName("Иван").enterSurname("Петров").enterAddress("ул. Ленина, 1")
-                .selectMetroStation("Сокольники").enterPhone("").clickNextButton();
-        assertTrue("Ошибка валидации телефона не появилась!", orderPage.isPhoneErrorDisplayed());
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
+        switch (errorType) {
+            case "name":
+                assertTrue("Ошибка валидации имени не появилась!", orderPage.isNameErrorDisplayed());
+                break;
+            case "surname":
+                assertTrue("Ошибка валидации фамилии не появилась!", orderPage.isSurnameErrorDisplayed());
+                break;
+            case "address":
+                assertTrue("Ошибка валидации адреса не появилась!", orderPage.isAddressErrorDisplayed());
+                break;
+            case "phone":
+                assertTrue("Ошибка валидации телефона не появилась!", orderPage.isPhoneErrorDisplayed());
+                break;
+        }
     }
 }

@@ -1,28 +1,16 @@
 package tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import pageobjects.HomePage;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class FaqTest {
-    private WebDriver driver;
-    private HomePage homePage;
+public class FaqTest extends WebTestBase {
 
-    @Parameterized.Parameter(0)
-    public int questionIndex;
-
-    @Parameterized.Parameter(1)
-    public String expectedAnswer;
+    @Parameterized.Parameter(0) public int questionIndex;
+    @Parameterized.Parameter(1) public String expectedAnswer;
 
     @Parameterized.Parameters(name = "Вопрос №{0}")
     public static Object[][] getTestData() {
@@ -38,24 +26,9 @@ public class FaqTest {
         };
     }
 
-    @Before
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
-        homePage = new HomePage(driver);
-        homePage.open().acceptCookies();
-    }
-
     @Test
     public void testFaqAnswerText() {
         String actualAnswer = homePage.getAnswerAfterClick(questionIndex);
         assertEquals("Текст ответа не совпадает!", expectedAnswer, actualAnswer);
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 }

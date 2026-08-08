@@ -1,23 +1,14 @@
 package tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import pageobjects.HomePage;
 import pageobjects.OrderPage;
 
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class PositiveOrderTest {
-    private WebDriver driver;
-    private HomePage homePage;
+public class PositiveOrderTest extends WebTestBase {
 
     @Parameterized.Parameter(0) public String name;
     @Parameterized.Parameter(1) public String surname;
@@ -38,16 +29,6 @@ public class PositiveOrderTest {
                 {"Мария", "Смирнова", "ул. Пушкина, 10", "Университет", "89031234567",
                         "12.08.2026", "пятеро суток", "grey", "", "bottom"},
         };
-    }
-
-    @Before
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
-        homePage = new HomePage(driver);
-        homePage.open().acceptCookies();
     }
 
     @Test
@@ -79,10 +60,5 @@ public class PositiveOrderTest {
         orderPage.confirmOrder();
 
         assertTrue("Заказ не был оформлен!", orderPage.isOrderCreated());
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 }
